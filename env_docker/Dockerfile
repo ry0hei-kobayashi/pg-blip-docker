@@ -49,12 +49,22 @@ RUN cd /LAVIS && pip install .
 # for avoiding error about numpy.core.multiarray failed to import
 RUN pip install numpy==1.22.4 opencv_python==4.5.3.56
 RUN pip uninstall -y pandas && pip install pandas
+#RUN pip uninstall -y huggingface_hub && pip install --upgrade huggingface_hub
+RUN pip install huggingface-hub==0.24.7
+
 
 #-----------------------------
 # Setup pg-blip workspace
 #-----------------------------
 RUN mkdir /pg-blip
 COPY ./pg-blip /pg-blip
+
+
+#-----------------------------
+# Download model
+#-----------------------------
+RUN mkdir /models
+RUN cd /models && wget https://huggingface.co/bidiptas/PG-InstructBLIP/resolve/main/pgvlm_weights.bin
 
 #-----------------------------
 # Tmux configuration
