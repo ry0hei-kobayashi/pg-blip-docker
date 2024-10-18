@@ -1,0 +1,28 @@
+01_this_pack_of_milk
+['01', 'this', 'pack', 'of', 'milk']
+this pack of milk
+['0.jpg', '1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg', '9.jpg', '10.jpg', '11.jpg', '12.jpg', '13.jpg', '14.jpg', '15.jpg', '16.jpg', '17.jpg', '18.jpg', '19.jpg']
+01_this_pack_of_milk/0.jpg
+Question1: Classify how heavy this pack of milk is heavy or light? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'light': 0.6406647562980652, 'unknown': 0.2735605835914612}
+Question2: Classify how easily this pack of milk can be broken or not? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'unknown': 0.4666402339935303, 'no': 0.06141207367181778}
+Question3: Classify this pack of milk as deformable,or undeformable? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'undeformable': 0.6801234483718872, 'deformable': 0.2342434972524643}
+Question4: Classify this pack of milk that made of plastic, paper, glass, or ceramics? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'paper': 0.981774091720581, 'plastic': 0.014630671590566635}
+Question5: Classify this pack of milk as transparent, translucent,or opaque? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'opaque': 0.9429712295532227, 'translucent': 0.03724832832813263}
+Question6: Classify what are the contents of this pack of milk? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'unknown': 0.766184389591217, 'milk': 0.13075368106365204}
+Question7: Classify this pack of milk as can contain liquid? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'yes': 0.9857699275016785, 'no': 0.004976888652890921}
+Question8: Classify Is the top of this pack of milk open? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'yes': 0.572883129119873, 'no': 0.3749736547470093}
+01_this_pack_of_milk/1.jpg
+Question1: Classify how heavy this pack of milk is heavy or light? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'light': 0.7217938899993896, 'unknown': 0.20439580082893372}
+Question2: Classify how easily this pack of milk can be broken or not? Respond unknown if you are not sure. Short answer:
+answers:score(%) {'unknown': 0.37495794892311096, 'no': 0.09814443439245224}
+
+

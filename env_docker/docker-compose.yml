@@ -1,0 +1,33 @@
+version: '3'
+services:
+  pg-blip:
+    image: pg-instruct-blip
+    build:
+      # context is upper directory (env_docker)
+      context: ../
+      dockerfile: ./env_docker/Dockerfile
+    volumes:
+     - /tmp/.X11-unix:/tmp/.X11-unix
+     - ../pg-blip:/pg-blip
+    environment:
+     - DISPLAY=${DISPLAY}
+     - QT_X11_NO_MITSHM=1
+     - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+     - ROS_MASTER_URI=http://192.168.0.173:11311
+     - ROS_IP=192.168.0.173
+    working_dir: /pg-blip
+    network_mode: host
+    logging:
+      driver: json-file
+
+    #nvidia settings
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    command: python cpu.py
+
