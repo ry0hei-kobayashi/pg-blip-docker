@@ -45,8 +45,10 @@ RUN python -m pip install open3d==0.18.0
 # Install LAVIS dependencies
 RUN sed -i 's/open3d==0.13.0/open3d==0.18.0/g' /LAVIS/requirements.txt
 RUN cd /LAVIS && pip install .
+RUN pip install moviepy
 
 # for avoiding error about numpy.core.multiarray failed to import
+#RUN pip install numpy==1.22.4 opencv_python==4.5.3.56
 RUN pip install numpy==1.22.4 opencv_python==4.5.3.56
 RUN pip uninstall -y pandas && pip install pandas
 #RUN pip uninstall -y huggingface_hub && pip install --upgrade huggingface_hub
@@ -58,20 +60,33 @@ RUN pip install huggingface-hub==0.24.7
 #-----------------------------
 RUN mkdir /pg-blip
 COPY ./pg-blip /pg-blip
+RUN mkdir /models
+COPY ./models models
 
 
 #-----------------------------
 # Download model
 #-----------------------------
-RUN mkdir /models
-RUN cd /models && wget https://huggingface.co/bidiptas/PG-InstructBLIP/resolve/main/pgvlm_weights.bin
+#RUN mkdir /models
+#RUN cd /models && wget https://huggingface.co/bidiptas/PG-InstructBLIP/resolve/main/pgvlm_weights.bin
+
+
+
+RUN pip uninstall opencv-python opencv-python-headless -y
+RUN pip install \
+    numpy==1.23.5 \
+    moviepy==1.0.3 \
+    opencv-python-headless==4.5.5.64 \
+    huggingface-hub==0.25.0 \
+    peft==0.13.0 \
+    salesforce-lavis==1.0.1
+
+WORKDIR /pg-blip
 
 #-----------------------------
 # Tmux configuration
 #-----------------------------
 RUN git clone https://github.com/ry0hei-kobayashi/tmux-conf.git && mv tmux-conf/.tmux.conf ~/
-
-WORKDIR /pg-blip
 
 #-----------------------------
 # Finalization

@@ -12,41 +12,10 @@ from generate import generate
 
 example_image = Image.open('images/tuna.jpg').convert("RGB")
 
-def get_blip_model(device='cuda', dtype=torch.bfloat16, use_multi_gpus=True):
-    #torch.half
-    model, vis_processors, txt_processors = load_model_and_preprocess(
-                    name='blip2_t5_instruct',
-                    model_type='flant5xxl',
-                    #load_in_8bit=True,
-                    is_eval=True,
-                )
-    model.to(dtype)
-    if use_multi_gpus:
-        device_map = infer_auto_device_map(
-                model, 
-                max_memory={0: "10GiB", 1: "10GiB"}, 
-                no_split_module_classes=['LlamaDecoderLayer', 'VisionTransformer']
-        )
-
-        device_map['llm_model.lm_head'] = device_map['llm_proj'] = device_map['llm_model.model.embed_tokens']
-        print(device_map)
-
-        model = dispatch_model(model, device_map=device_map)
-        torch.cuda.empty_cache()
-
-    else:
-        model.to('cuda:0')
-    model.eval()
-    if torch.__version__ >= "2" and sys.platform != "win32":
-        model = torch.compile(model)
-    return model, (txt_processors, vis_processors)
-
-get_blip_model()
-
 vlm = load_model(
     name='blip2_t5_instruct',
     model_type='flant5xxl',
-    checkpoint='../pgvlm/pgvlm_weights.bin',  # replace with location of downloaded weights
+    checkpoint='/models/pgvlm_weights.bin',  # replace with location of downloaded weights
     is_eval=True,
     device="cuda" if torch.cuda.is_available() else "cpu"
     #device="cpu"
