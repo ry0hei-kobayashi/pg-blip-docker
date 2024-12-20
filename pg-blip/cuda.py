@@ -10,13 +10,14 @@ from lavis.common.registry import registry
 
 from generate import generate
 
-example_image = Image.open('images/tuna.jpg').convert("RGB")
+example_image = Image.open('../pg-blip/images/tuna.jpg').convert("RGB")
 
 #torch.cuda.set_device(1)
 vlm = load_model(
     name='blip2_t5_instruct',
     model_type='flant5xxl',
-    checkpoint='/models/pgvlm_weights.bin',  # replace with location of downloaded weights
+    #checkpoint='/models/pgvlm_weights.bin',  # replace with location of downloaded weights
+    checkpoint='../models/pgvlm_weights.bin',  # replace with location of downloaded weights
     is_eval=True,
     device="cuda" #if torch.cuda.is_available() else "cpu"
     #device="cpu"
