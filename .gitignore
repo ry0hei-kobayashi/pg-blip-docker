@@ -13,6 +13,13 @@ tramp
 .\#*
 .sw*
 
+#a100 server
+*.out
+
 #for model
 *.bin
 *.safetensors
+
+#singularity
+*.sif
+
