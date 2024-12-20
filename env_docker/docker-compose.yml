@@ -10,10 +10,13 @@ services:
      - /tmp/.X11-unix:/tmp/.X11-unix
      - ../pg-blip:/pg-blip
      - ../env_docker/requirements.txt:/requirements.txt
+     - ../models:/models
     environment:
      - DISPLAY=${DISPLAY}
      - QT_X11_NO_MITSHM=1
      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+     - NVIDIA_VISIBLE_DEVICES=1
+     #- NVIDIA_VISIBLE_DEVICES=GPU-df3270b1-d82a-8f87-b23a-f8ad98e73569
      #- ROS_MASTER_URI=http://192.168.0.173:11311
      #- ROS_IP=192.168.0.173
     working_dir: /pg-blip
@@ -22,14 +25,13 @@ services:
       driver: json-file
 
     #nvidia settings
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+    #deploy:
+    #  resources:
+    #    reservations:
+    #      devices:
+    #        - driver: nvidia
+    #          count: all
+    #          capabilities: [gpu]
 
     command: python cuda.py
     #command: nvidia-smi -l
-

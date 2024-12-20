@@ -6,18 +6,19 @@ from lavis.models import load_model, load_preprocess, load_model_and_preprocess
 from lavis.common.registry import registry
 
 #import requests
-from accelerate import dispatch_model, infer_auto_device_map, load_checkpoint_and_dispatch
+#from accelerate import dispatch_model, infer_auto_device_map, load_checkpoint_and_dispatch
 
 from generate import generate
 
 example_image = Image.open('images/tuna.jpg').convert("RGB")
 
+#torch.cuda.set_device(1)
 vlm = load_model(
     name='blip2_t5_instruct',
     model_type='flant5xxl',
     checkpoint='/models/pgvlm_weights.bin',  # replace with location of downloaded weights
     is_eval=True,
-    device="cuda" if torch.cuda.is_available() else "cpu"
+    device="cuda" #if torch.cuda.is_available() else "cpu"
     #device="cpu"
 )
 
