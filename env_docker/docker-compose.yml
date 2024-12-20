@@ -15,23 +15,14 @@ services:
      - DISPLAY=${DISPLAY}
      - QT_X11_NO_MITSHM=1
      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
-     - NVIDIA_VISIBLE_DEVICES=1
-     #- NVIDIA_VISIBLE_DEVICES=GPU-df3270b1-d82a-8f87-b23a-f8ad98e73569
-     #- ROS_MASTER_URI=http://192.168.0.173:11311
-     #- ROS_IP=192.168.0.173
+     #- NVIDIA_VISIBLE_DEVICES=1 #A100 80GB 2nd
+     - NVIDIA_VISIBLE_DEVICES=MIG-78fe31ba-2187-5cfe-ac8b-433427112f22 #A100 40GB MIG
+     #- NVIDIA_VISIBLE_DEVICES=MIG-fe3895bf-a348-5909-b135-ee5531e1d393 #A100 40GB MIG
+
     working_dir: /pg-blip
     network_mode: host
     logging:
       driver: json-file
-
-    #nvidia settings
-    #deploy:
-    #  resources:
-    #    reservations:
-    #      devices:
-    #        - driver: nvidia
-    #          count: all
-    #          capabilities: [gpu]
 
     command: python cuda.py
     #command: nvidia-smi -l
