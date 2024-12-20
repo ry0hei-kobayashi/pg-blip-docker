@@ -5,10 +5,12 @@ From: nvidia/cuda:11.3.1-devel-ubuntu20.04
 %environment
     export LC_ALL=C.UTF-8
     export LANG=C.UTF-8
-    export DEBIAN_FRONTEND=noninteractive
+    export TZ=Asia/Tokyo
     export XDG_RUNTIME_DIR=/run/user/1000
 
 %post
+    export DEBIAN_FRONTEND=noninteractive
+
     # Create XDG_RUNTIME_DIR with permissions
     mkdir -p /run/user/1000 && chmod 0700 /run/user/1000
 
@@ -37,22 +39,25 @@ From: nvidia/cuda:11.3.1-devel-ubuntu20.04
     cd /LAVIS && pip install .
 
     # Resolve numpy core multiarray issue and install compatible packages
-    pip install numpy==1.22.4 opencv_python==4.5.3.56
-    pip uninstall -y pandas && pip install pandas
-    pip install huggingface-hub==0.24.7
 
-    # Set up pg-blip workspace
-    #mkdir /pg-blip
-    #cp -r /path/to/your/local/pg-blip /pg-blip
+
+    pip uninstall opencv-python opencv-python-headless -y
+    pip install \
+        numpy==1.23.5 \
+        moviepy==1.0.3 \
+        opencv-python-headless==4.5.5.64 \
+        huggingface-hub==0.25.0 \
+        peft==0.13.0 \
+        salesforce-lavis==1.0.1
 
     # Download model
-    mkdir /models
-    cd /models && wget https://huggingface.co/bidiptas/PG-InstructBLIP/resolve/main/pgvlm_weights.bin
+    #mkdir /models
+    #cd /models && wget https://huggingface.co/bidiptas/PG-InstructBLIP/resolve/main/pgvlm_weights.bin
 
     # Set up tmux configuration
     git clone https://github.com/ry0hei-kobayashi/tmux-conf.git && mv tmux-conf/.tmux.conf ~/
 
 %runscript
-    # Change to the pg-blip directory on startup
-    cd /pg-blip
+    exec python ~/pg-blip-docker/pg-blip/cuda.py
+
 

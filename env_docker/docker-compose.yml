@@ -9,8 +9,9 @@ services:
     volumes:
      - /tmp/.X11-unix:/tmp/.X11-unix
      - ../pg-blip:/pg-blip
-     - ../env_docker/requirements.txt:/requirements.txt
-     - ../models:/models
+     - ../models/pgvlm_weights.bin:/models/pgvlm_weights.bin
+     #- ../models/flan_t5_xxl/:/root/.cache/huggingface/hub/models--Salesforce--instructblip-flan-t5-xxl/
+     - ~/.cache/huggingface/hub/:/root/.cache/huggingface/hub/
     environment:
      - DISPLAY=${DISPLAY}
      - QT_X11_NO_MITSHM=1
